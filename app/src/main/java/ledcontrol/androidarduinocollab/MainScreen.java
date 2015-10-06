@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainScreen extends Activity {
 
@@ -11,6 +12,25 @@ public class MainScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+        ValueBar vBar;
+        ColorPicker picker = (ColorPicker) findViewById(R.id.picker);
+
+        vBar = (ValueBar) findViewById(R.id.valuebar);
+//        int colorFinal = vBar.getColor();
+//        TextView cText = (TextView) findViewById(R.id.txtB);
+//        cText.setText(Integer.toString(colorFinal));
+        picker.addValueBar(vBar);
+        //To get the color
+        picker.getColor();
+
+        //To set the old selected color u can do it like this
+        picker.setOldCenterColor(picker.getColor());
+        // adds listener to the colorpicker which is implemented
+        //in the activity
+//        picker.setOnColorChangedListener(this);
+
+        //to turn of showing the old color
+        picker.setShowOldCenterColor(false);
     }
 
     @Override

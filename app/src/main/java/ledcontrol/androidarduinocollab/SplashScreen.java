@@ -21,7 +21,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 try {
-                    sleep(2500); // set this to how long you want to wait before
+                    sleep(100); // set this to how long you want to wait before
                     // showing the main screen
                 } catch (InterruptedException e) {
                     e.printStackTrace();
