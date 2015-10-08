@@ -2,15 +2,17 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:innerRadius="0dp"
     android:shape="ring"
-    android:thicknessRatio="1.9"
+    android:thicknessRatio="5"
     android:useLevel="false" >
 
     <solid android:color="@android:color/transparent" />
 
-    <size android:width="50dp"
-        android:height="50dp"/>
+    <size
+        android:width="5dp"
+        android:height="5dp"/>
 
-    <stroke android:width="5dp"
+    <stroke
+        android:width="2dp"
         android:color="#FFFFFF"/>
 
 </shape>
