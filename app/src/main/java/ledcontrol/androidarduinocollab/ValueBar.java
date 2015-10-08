@@ -208,15 +208,20 @@ public class ValueBar extends View {
 
 		mBarPointerPosition = mBarPointerHaloRadius;
 
+
 		mBarPointerHaloPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		mBarPointerHaloPaint.setColor(Color.GRAY);
 		mBarPointerHaloPaint.setAlpha(0x50);
 
 		mBarPointerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mBarPointerPaint.setColor(0xff81ff00);
+		mBarPointerPaint.setColor(0xff81ff00); //danyon
 
-		mPosToSatFactor = 1 / ((float) mBarLength);
-		mSatToPosFactor = ((float) mBarLength) / 1;
+
+
+
+
+//		mPosToSatFactor = 1 / ((float) mBarLength);
+//		mSatToPosFactor = ((float) mBarLength) / 1;
 	}
 
 	@Override
@@ -287,14 +292,14 @@ public class ValueBar extends View {
 		if (!isInEditMode()) {
 			shader = new LinearGradient(mBarPointerHaloRadius, 0,
 					x1, y1,
-					new int[] { Color.BLACK, Color.HSVToColor(0xFF, mHSVColor) },
+					new int[] { Color.HSVToColor(0xFF, mHSVColor), Color.BLACK},
 					null, Shader.TileMode.CLAMP);
 		} else {
 			shader = new LinearGradient(mBarPointerHaloRadius, 0,
 					x1, y1,
-					new int[] {  Color.BLACK, 0xff81ff00}, null,
+					new int[] { 0xff81ff00, Color.BLACK}, null,
 					Shader.TileMode.CLAMP);
-			Color.colorToHSV(0xff81ff00, mHSVColor);
+			Color.colorToHSV(0xff81ff00, mHSVColor); //danyon
 		}
 
 		mBarPaint.setShader(shader);
@@ -374,7 +379,7 @@ public class ValueBar extends View {
 					invalidate();
 				} else if (dimen < mBarPointerHaloRadius) {
 					mBarPointerPosition = mBarPointerHaloRadius;
-					mColor = Color.BLACK;		//values changed to reverse brightness order
+					//mColor = Color.BLACK;		//values changed to reverse brightness order
 					mBarPointerPaint.setColor(mColor);
 					if (mPicker != null) {
 						mPicker.setNewCenterColor(mColor);
@@ -422,7 +427,7 @@ public class ValueBar extends View {
 		Color.colorToHSV(color, mHSVColor);
 		shader = new LinearGradient(mBarPointerHaloRadius, 0,
 				x1, y1, new int[] {
-						Color.BLACK, color }, null, Shader.TileMode.CLAMP);
+						 color, Color.BLACK}, null, Shader.TileMode.CLAMP);
 		mBarPaint.setShader(shader);
 		calculateColor(mBarPointerPosition);
 		mBarPointerPaint.setColor(mColor);
@@ -462,7 +467,7 @@ public class ValueBar extends View {
 	    }
 	    mColor = Color.HSVToColor(new float[] { mHSVColor[0],
 		    				    mHSVColor[1],
-		    				    (float) (0 + (mPosToSatFactor * coord)) });
+		    				    (float) (1 - (mPosToSatFactor * coord)) });
     }
 
 	/**
