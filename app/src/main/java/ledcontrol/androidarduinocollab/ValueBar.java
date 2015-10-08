@@ -379,7 +379,7 @@ public class ValueBar extends View {
 					invalidate();
 				} else if (dimen < mBarPointerHaloRadius) {
 					mBarPointerPosition = mBarPointerHaloRadius;
-					//mColor = Color.BLACK;		//values changed to reverse brightness order
+					//mColor = Color.BLACK;
 					mBarPointerPaint.setColor(mColor);
 					if (mPicker != null) {
 						mPicker.setNewCenterColor(mColor);

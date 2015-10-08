@@ -28,7 +28,7 @@
                 android:textStyle="bold"
                 android:textSize="40sp"
                 android:text="Color"
-                android:id="@+id/textView"
+                android:id="@+id/colorlabel"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
@@ -36,7 +36,7 @@
                 android:id="@+id/picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/colorlabel"
                 android:layout_centerHorizontal="true" />
 
             <ledcontrol.androidarduinocollab.ValueBar
@@ -54,40 +54,44 @@
                 android:orientation="horizontal"
                 android:layout_below="@+id/valuebar" >
 
-                <View
+                <ledcontrol.androidarduinocollab.CircleButton
                     android:id="@+id/circle1"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                    android:background="@drawable/circle"/>
-
-
-
-                <View
-                    android:id="@+id/circle2"
-                    android:layout_toRightOf="@+id/circle1"
                     android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/circle"/>
+                    android:layout_height="50dp"
+                    android:layout_weight="1" />
 
-                <View
+                <ledcontrol.androidarduinocollab.CircleButton
+                    android:id="@+id/circle2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1" />
+
+                <ledcontrol.androidarduinocollab.CircleButton
                     android:id="@+id/circle3"
                     android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/circle"/>
+                    android:layout_height="50dp"
+                    android:layout_weight="1" />
 
-                <View
+                <ledcontrol.androidarduinocollab.CircleButton
                     android:id="@+id/circle4"
                     android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/circle"/>
+                    android:layout_height="50dp"
+                    android:layout_weight="1" />
 
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/displaylabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/circlelayout"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:text="Display Style"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
             <ImageView
                 android:id="@+id/pattern1"

@@ -16,5 +16,9 @@
         <attr name="bar_pointer_halo_radius" format="dimension" />
         <attr name="bar_orientation_horizontal" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="CircleButton">
+        <attr name="cb_color" format="color" />
+        <attr name="cb_pressedRingWidth" format="dimension" />
+    </declare-styleable>
 
 </resources>

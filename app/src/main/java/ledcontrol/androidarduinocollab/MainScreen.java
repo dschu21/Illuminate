@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
+
+
 
 public class MainScreen extends Activity {
-    
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,10 @@ public class MainScreen extends Activity {
         //to turn of showing the old color
         picker.setShowOldCenterColor(false);
 
+        CircleButton color1 = (CircleButton) findViewById(R.id.circle1);
+        CircleButton color2 = (CircleButton) findViewById(R.id.circle2);
+        CircleButton color3 = (CircleButton) findViewById(R.id.circle3);
+        CircleButton color4 = (CircleButton) findViewById(R.id.circle4);
 
     }
 
