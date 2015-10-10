@@ -589,6 +589,7 @@ public class ColorPicker extends View {
 
 					if (mValueBar != null) {
 						mValueBar.setColor(mColor);
+						MainScreen.getActiveButton().setColor(mColor);
 					}
 
 					invalidate();

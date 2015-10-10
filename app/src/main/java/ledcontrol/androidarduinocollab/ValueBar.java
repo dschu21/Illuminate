@@ -31,6 +31,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import ledcontrol.androidarduinocollab.CircleButton;
 
 public class ValueBar extends View {
 
@@ -154,7 +155,7 @@ public class ValueBar extends View {
 	 */
 	private int oldChangedListenerValue;
 
-    public interface OnValueChangedListener {
+	public interface OnValueChangedListener {
         public void onValueChanged(int value);
     }
 
@@ -266,7 +267,6 @@ public class ValueBar extends View {
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-
 		// Fill the rectangle instance based on orientation
 		int x1, y1;
 		if (mOrientation == ORIENTATION_HORIZONTAL) {
@@ -375,6 +375,7 @@ public class ValueBar extends View {
 					mBarPointerPaint.setColor(mColor);
 					if (mPicker != null) {
 						mPicker.setNewCenterColor(mColor);
+						MainScreen.getActiveButton().setColor(mColor);		//danyon
 					}
 					invalidate();
 				} else if (dimen < mBarPointerHaloRadius) {
@@ -383,6 +384,7 @@ public class ValueBar extends View {
 					mBarPointerPaint.setColor(mColor);
 					if (mPicker != null) {
 						mPicker.setNewCenterColor(mColor);
+						MainScreen.getActiveButton().setColor(mColor);
 					}
 					invalidate();
 				} else if (dimen > (mBarPointerHaloRadius + mBarLength)) {
@@ -390,6 +392,7 @@ public class ValueBar extends View {
 					mBarPointerPaint.setColor(mColor);
 					if (mPicker != null) {
 						mPicker.setNewCenterColor(mColor);
+						MainScreen.getActiveButton().setColor(mColor);
 					}
 					invalidate();
 				}

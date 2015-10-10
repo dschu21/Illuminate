@@ -34,6 +34,7 @@ public class CircleButton extends ImageView {
     private int pressedRingWidth;
     private int defaultColor = 0xff81ff00;
     private int pressedColor;
+    private static CircleButton activeButton;
     private ObjectAnimator pressedAnimator;
 
     public CircleButton(Context context) {
@@ -49,6 +50,16 @@ public class CircleButton extends ImageView {
     public CircleButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
+    }
+
+    public static CircleButton getActiveButton() {
+        return activeButton;
+    }
+
+    public static void setActiveButton(CircleButton button) {
+        activeButton.hidePressedRing();
+        activeButton = button;
+        activeButton.showPressedRing();
     }
 
     @Override
@@ -116,7 +127,6 @@ public class CircleButton extends ImageView {
         this.setFocusable(true);
         this.setScaleType(ScaleType.CENTER_INSIDE);
         setClickable(true);
-
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setStyle(Paint.Style.FILL);
 
