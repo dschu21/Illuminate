@@ -41,6 +41,11 @@ public class MainScreen extends Activity {
     private boolean pattern3Select;
     private boolean pattern4Select;
 
+    private static int barPosition1;
+    private static int barPosition2;
+    private static int barPosition3;
+    private static int barPosition4;
+
     private static ObjectAnimator pressedAnimator;
 
     private static MainScreen mMainScreen = null;
@@ -50,7 +55,7 @@ public class MainScreen extends Activity {
     private Toast warning;
 
     private ColorPicker picker;
-    private ValueBar bar;
+    private ValueBar vBar;
 
     private Handler mHandler = new Handler();
     private Runnable immersiveView = new Runnable() {
@@ -71,9 +76,8 @@ public class MainScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
-        ValueBar vBar;
         picker = (ColorPicker) findViewById(R.id.picker);
-        bar = (ValueBar) findViewById(R.id.valuebar);
+        vBar = (ValueBar) findViewById(R.id.valuebar);
 
         color1 = (CircleButton) findViewById(R.id.circle1);
         color2 = (CircleButton) findViewById(R.id.circle2);
@@ -95,25 +99,19 @@ public class MainScreen extends Activity {
         pattern1Select = false;
         pattern1Select = false;
 
+        barPosition1 = vBar.mBarPointerHaloRadius;
+        barPosition2 = vBar.mBarPointerHaloRadius;
+        barPosition3 = vBar.mBarPointerHaloRadius;
+        barPosition4 = vBar.mBarPointerHaloRadius;
+
+
         pattern1.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
 
         ctv1.setChecked(true);
 
-        vBar = (ValueBar) findViewById(R.id.valuebar);
-//        int colorFinal = vBar.getColor();
-//        TextView cText = (TextView) findViewById(R.id.txtB);
-//        cText.setText(Integer.toString(colorFinal));
         picker.addValueBar(vBar);
-        //To get the color
         picker.getColor();
-
-        //To set the old selected color u can do it like this
         picker.setOldCenterColor(picker.getColor());
-        // adds listener to the colorpicker which is implemented
-        //in the activity
-//        picker.setOnColorChangedListener(this);
-
-        //to turn of showing the old color
         picker.setShowOldCenterColor(false);
 
 
@@ -224,8 +222,9 @@ public class MainScreen extends Activity {
         picker.mPointerColor.setColor(color);
         picker.mPointerHaloPaint.setColor(color);
         picker.mPointerHaloPaint.setAlpha(0x50);
-
-        bar.setColor(color);
+        vBar.setBarPointerPosition(getBarPosition());
+        vBar.setColor(color);
+        vBar.invalidate();
         picker.invalidate();
 
     }
@@ -245,9 +244,28 @@ public class MainScreen extends Activity {
             pattern.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
             pattern1 = true;
         }
-
-
     }
 
+    public static void setBarPosition(int position){
+        if (ctv1.isChecked())
+            barPosition1 = position;
+        else if (ctv2.isChecked())
+            barPosition2 = position;
+        else if (ctv3.isChecked())
+            barPosition3 = position;
+        else
+            barPosition4 = position;
+    }
+
+    public int getBarPosition(){
+        if (ctv1.isChecked())
+            return barPosition1;
+        else if (ctv2.isChecked())
+            return barPosition2;
+        else if (ctv3.isChecked())
+            return barPosition3;
+        else
+            return barPosition4;
+    }
 
 }

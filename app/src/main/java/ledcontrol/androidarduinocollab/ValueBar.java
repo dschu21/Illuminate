@@ -71,12 +71,12 @@ public class ValueBar extends View {
 	/**
 	 * The radius of the halo of the pointer.
 	 */
-	private int mBarPointerHaloRadius;
+	protected int mBarPointerHaloRadius;
 
 	/**
 	 * The position of the pointer on the bar.
 	 */
-	private int mBarPointerPosition;
+	private static int mBarPointerPosition;
 
 	/**
 	 * {@code Paint} instance used to draw the bar.
@@ -370,30 +370,20 @@ public class ValueBar extends View {
 						&& dimen <= (mBarPointerHaloRadius + mBarLength)) {
 					mBarPointerPosition = Math.round(dimen);
 					calculateColor(Math.round(dimen));
-					mBarPointerPaint.setColor(mColor);
-					if (mPicker != null) {
-						mPicker.setNewCenterColor(mColor);
-						MainScreen.getActiveButton().setColor(mColor);		//danyon
-					}
-					invalidate();
+
 				} else if (dimen < mBarPointerHaloRadius) {
 					mBarPointerPosition = mBarPointerHaloRadius;
-					//mColor = Color.BLACK;
-					mBarPointerPaint.setColor(mColor);
-					if (mPicker != null) {
-						mPicker.setNewCenterColor(mColor);
-						MainScreen.getActiveButton().setColor(mColor);
-					}
-					invalidate();
+					//mColor = Color.BLACK;diu
 				} else if (dimen > (mBarPointerHaloRadius + mBarLength)) {
 					mBarPointerPosition = mBarPointerHaloRadius + mBarLength;
-					mBarPointerPaint.setColor(mColor);
-					if (mPicker != null) {
-						mPicker.setNewCenterColor(mColor);
-						MainScreen.getActiveButton().setColor(mColor);
-					}
-					invalidate();
 				}
+				mBarPointerPaint.setColor(mColor);
+				if (mPicker != null) {
+					mPicker.setNewCenterColor(mColor);
+					MainScreen.setBarPosition(mBarPointerPosition);
+					MainScreen.getActiveButton().setColor(mColor);		//danyon
+				}
+				invalidate();
 			}
 			if(onValueChangedListener != null && oldChangedListenerValue != mColor){
 	            onValueChangedListener.onValueChanged(mColor);
@@ -470,6 +460,10 @@ public class ValueBar extends View {
 		    				    mHSVColor[1],
 		    				    (float) (1 - (mPosToSatFactor * coord)) });
     }
+
+	protected void setBarPointerPosition(int position){
+		mBarPointerPosition = position;
+	}
 
 	/**
 	 * Get the currently selected color.
