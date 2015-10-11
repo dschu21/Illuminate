@@ -31,8 +31,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import ledcontrol.androidarduinocollab.CircleButton;
-
 public class ValueBar extends View {
 
 	/*
@@ -116,7 +114,7 @@ public class ValueBar extends View {
 	/**
 	 * The ARGB value of the currently selected color.
 	 */
-	private int mColor;
+	protected static int mColor;
 
 	/**
 	 * An array of floats that can be build into a {@code Color} <br>

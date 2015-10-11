@@ -31,8 +31,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import ledcontrol.androidarduinocollab.R;
-
 /**
  * Displays a holo-themed color picker.
  *
@@ -68,7 +66,7 @@ public class ColorPicker extends View {
 	/**
 	 * {@code Paint} instance used to draw the pointer (the selected color).
 	 */
-	private Paint mPointerColor;
+	protected Paint mPointerColor;
 
 	/**
 	 * The width of the color wheel thickness.
@@ -172,7 +170,7 @@ public class ColorPicker extends View {
 	/**
 	 * The pointer's position expressed as angle (in rad).
 	 */
-	private float mAngle;
+	protected static float mAngle;
 
 	/**
 	 * {@code Paint} instance used to draw the center with the old selected
@@ -531,7 +529,7 @@ public class ColorPicker extends View {
 	 * @return The angle (in rad) the "normalized" color is displayed on the
 	 *         color wheel.
 	 */
-	private float colorToAngle(int color) {
+	protected  static float colorToAngle(int color) {
 		float[] colors = new float[3];
 		Color.colorToHSV(color, colors);
 
@@ -589,6 +587,8 @@ public class ColorPicker extends View {
 
 					if (mValueBar != null) {
 						mValueBar.setColor(mColor);
+						mPointerHaloPaint.setColor(mColor);
+						mPointerHaloPaint.setAlpha(0x50);
 						MainScreen.getActiveButton().setColor(mColor);
 					}
 

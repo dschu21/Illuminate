@@ -1,7 +1,9 @@
 package ledcontrol.androidarduinocollab;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,6 +29,18 @@ public class MainScreen extends Activity {
     private static CheckedTextView ctv2;
     private static CheckedTextView ctv3;
     private static CheckedTextView ctv4;
+
+    private static ImageView pattern1;
+    private static ImageView pattern2;
+    private static ImageView pattern3;
+    private static ImageView pattern4;
+
+    private static boolean pattern1Select;
+    private static boolean pattern2Select;
+    private static boolean pattern3Select;
+    private static boolean pattern4Select;
+
+    private static ObjectAnimator pressedAnimator;
 
     private static MainScreen mMainScreen = null;
     private static Set<BluetoothDevice> pairedDevices = null;
@@ -61,9 +76,21 @@ public class MainScreen extends Activity {
         color4 = (CircleButton) findViewById(R.id.circle4);
 
         ctv1 = (CheckedTextView) findViewById(R.id.checkedTextView1);
-        ctv2= (CheckedTextView) findViewById(R.id.checkedTextView2);
+        ctv2 = (CheckedTextView) findViewById(R.id.checkedTextView2);
         ctv3 = (CheckedTextView) findViewById(R.id.checkedTextView3);
         ctv4 = (CheckedTextView) findViewById(R.id.checkedTextView4);
+
+        pattern1 = (ImageView) findViewById(R.id.pattern1);
+        pattern2 = (ImageView) findViewById(R.id.pattern2);
+        pattern3 = (ImageView) findViewById(R.id.pattern3);
+        pattern4 = (ImageView) findViewById(R.id.pattern4);
+
+        pattern1Select = true;
+        pattern1Select = false;
+        pattern1Select = false;
+        pattern1Select = false;
+
+        pattern1.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
 
         ctv1.setChecked(true);
 
@@ -88,13 +115,13 @@ public class MainScreen extends Activity {
         color1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uncheckCTV(ctv1, ctv2, ctv3, ctv4);
+                uncheckCTV(color1, ctv1, ctv2, ctv3, ctv4);
             }
         });
         color2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uncheckCTV(ctv2, ctv1, ctv3, ctv4);
+                uncheckCTV(color2, ctv2, ctv1, ctv3, ctv4);
 
 
             }
@@ -102,14 +129,39 @@ public class MainScreen extends Activity {
         color3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uncheckCTV(ctv3, ctv1, ctv2, ctv4);
+                uncheckCTV(color3, ctv3, ctv1, ctv2, ctv4);
 
             }
         });
         color4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uncheckCTV(ctv4, ctv1, ctv2, ctv3);
+                uncheckCTV(color4, ctv4, ctv1, ctv2, ctv3);
+            }
+        });
+
+        pattern1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFilter(pattern1, pattern1Select, pattern2Select, pattern3Select, pattern4Select);
+            }
+        });
+        pattern2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFilter(pattern2, pattern2Select, pattern1Select, pattern3Select, pattern4Select);
+            }
+        });
+        pattern3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFilter(pattern3, pattern3Select, pattern1Select, pattern2Select, pattern4Select);
+            }
+        });
+        pattern4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFilter(pattern4, pattern4Select, pattern1Select, pattern2Select, pattern3Select);
             }
         });
 
@@ -139,15 +191,7 @@ public class MainScreen extends Activity {
         return super.onOptionsItemSelected(item);
     }
     
-    public void uncheckCTV(CheckedTextView ctv, CheckedTextView ctv1, CheckedTextView ctv2,
-                      CheckedTextView ctv3){
-        if (!ctv.isChecked())
-            ctv.toggle();
-        ctv1.setChecked(false);
-        ctv2.setChecked(false);
-        ctv3.setChecked(false);
 
-    }
 
     public static CircleButton getActiveButton() {
         if(ctv1.isChecked())
@@ -159,5 +203,37 @@ public class MainScreen extends Activity {
         else
             return color4;
     }
+
+    public void uncheckCTV(CircleButton button, CheckedTextView ctv, CheckedTextView ctv1,
+                           CheckedTextView ctv2, CheckedTextView ctv3){
+
+        if (!ctv.isChecked()) {
+            ctv.toggle();
+        }
+        ctv1.setChecked(false);
+        ctv2.setChecked(false);
+        ctv3.setChecked(false);
+
+    }
+
+    public void setFilter(ImageView pattern, boolean pattern1, boolean pattern2,
+                          boolean pattern3, boolean pattern4){
+
+        pattern2 = false;
+        pattern3 = false;
+        pattern4 = false;
+        this.pattern1.clearColorFilter();
+        this.pattern2.clearColorFilter();
+        this.pattern3.clearColorFilter();
+        this.pattern4.clearColorFilter();
+
+        if(!pattern1){
+            pattern.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
+            pattern1 = true;
+        }
+
+
+    }
+
 
 }
