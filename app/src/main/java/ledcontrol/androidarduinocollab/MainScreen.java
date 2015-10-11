@@ -3,6 +3,7 @@ package ledcontrol.androidarduinocollab;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +17,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.Set;
-
 
 public class MainScreen extends Activity {
 
@@ -213,6 +213,15 @@ public class MainScreen extends Activity {
         ctv1.setChecked(false);
         ctv2.setChecked(false);
         ctv3.setChecked(false);
+        ColorPicker.mAngle = ColorPicker.colorToAngle(button.getColor());
+        System.out.println("mangle" + ColorPicker.mAngle);
+        ColorPicker.mCenterNewColor = button.getColor();
+        System.out.println("center" + ColorPicker.mCenterNewColor);
+        ColorPicker.mCenterNewPaint.setColor(button.getColor());
+        System.out.println("centerpaint" + ColorPicker.mCenterNewPaint);
+        ColorPicker.mPointerColor.setColor(button.getColor());
+        //reset bar position
+        invalidateOptionsMenu();
 
     }
 

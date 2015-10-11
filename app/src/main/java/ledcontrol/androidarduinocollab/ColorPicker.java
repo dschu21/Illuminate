@@ -66,7 +66,7 @@ public class ColorPicker extends View {
 	/**
 	 * {@code Paint} instance used to draw the pointer (the selected color).
 	 */
-	protected Paint mPointerColor;
+	protected static Paint mPointerColor;
 
 	/**
 	 * The width of the color wheel thickness.
@@ -122,7 +122,7 @@ public class ColorPicker extends View {
 	/**
 	 * The ARGB value of the currently selected color.
 	 */
-	private int mColor;
+	protected int mColor;
 
 	/**
 	 * The ARGB value of the center with the old selected color.
@@ -137,7 +137,7 @@ public class ColorPicker extends View {
 	/**
 	 * The ARGB value of the center with the new selected color.
 	 */
-	private int mCenterNewColor;
+	protected static int mCenterNewColor;
 
 	/**
 	 * Number of pixels the origin of this view is moved in X- and Y-direction.
@@ -182,7 +182,7 @@ public class ColorPicker extends View {
 	 * {@code Paint} instance used to draw the center with the new selected
 	 * color.
 	 */
-	private Paint mCenterNewPaint;
+	protected static Paint mCenterNewPaint;
 
 	/**
 	 * {@code Paint} instance used to draw the halo of the center selected
@@ -454,7 +454,7 @@ public class ColorPicker extends View {
 	 * @return The ARGB value of the color on the color wheel at the specified
 	 *         angle.
 	 */
-	private int calculateColor(float angle) {
+	protected int calculateColor(float angle) {
 		float unit = (float) (angle / (2 * Math.PI));
 		if (unit < 0) {
 			unit += 1;
@@ -584,12 +584,11 @@ public class ColorPicker extends View {
 					mPointerColor.setColor(calculateColor(mAngle));
 
 					setNewCenterColor(mCenterNewColor = calculateColor(mAngle));
-
+//					MainScreen.getActiveButton().setColor(mCenterNewColor);
 					if (mValueBar != null) {
 						mValueBar.setColor(mColor);
 						mPointerHaloPaint.setColor(mColor);
 						mPointerHaloPaint.setAlpha(0x50);
-						MainScreen.getActiveButton().setColor(mColor);
 					}
 
 					invalidate();
@@ -604,7 +603,7 @@ public class ColorPicker extends View {
 				mUserIsMovingPointer = false;
 				mCenterHaloPaint.setAlpha(0x00);
 
-				if (onColorSelectedListener != null && mCenterNewColor != oldSelectedListenerColor) {
+				if (onColorSelectedListener != null && mCenterNewColor != oldSelectedListenerColor){
 					onColorSelectedListener.onColorSelected(mCenterNewColor);
 					oldSelectedListenerColor = mCenterNewColor;
 				}
@@ -651,6 +650,7 @@ public class ColorPicker extends View {
 	public void setNewCenterColor(int color) {
 		mCenterNewColor = color;
 		mCenterNewPaint.setColor(color);
+		MainScreen.getActiveButton().setColor(color);
 		if (mCenterOldColor == 0) {
 			mCenterOldColor = color;
 			mCenterOldPaint.setColor(color);

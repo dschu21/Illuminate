@@ -34,7 +34,6 @@ public class CircleButton extends ImageView {
     private int pressedRingWidth;
     private int defaultColor = 0xff81ff00;
     private int pressedColor;
-    private static CircleButton activeButton;
     public static float mangle = (float) (-Math.PI / 2);
     private ObjectAnimator pressedAnimator;
 
@@ -53,15 +52,6 @@ public class CircleButton extends ImageView {
         init(context, attrs);
     }
 
-    public static CircleButton getActiveButton() {
-        return activeButton;
-    }
-
-    public static void setActiveButton(CircleButton button) {
-        activeButton.hidePressedRing();
-        activeButton = button;
-        activeButton.showPressedRing();
-    }
 
     public static float getAngle(){
         return mangle;
@@ -120,6 +110,10 @@ public class CircleButton extends ImageView {
         focusPaint.setAlpha(PRESSED_RING_ALPHA);
 
         this.invalidate();
+    }
+
+    public int getColor(){
+        return defaultColor;
     }
 
     protected void hidePressedRing() {
