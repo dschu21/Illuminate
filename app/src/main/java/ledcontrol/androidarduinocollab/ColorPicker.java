@@ -61,12 +61,12 @@ public class ColorPicker extends View {
 	/**
 	 * {@code Paint} instance used to draw the pointer's "halo".
 	 */
-	private Paint mPointerHaloPaint;
+	protected Paint mPointerHaloPaint;
 
 	/**
 	 * {@code Paint} instance used to draw the pointer (the selected color).
 	 */
-	protected static Paint mPointerColor;
+	protected Paint mPointerColor;
 
 	/**
 	 * The width of the color wheel thickness.
@@ -137,7 +137,7 @@ public class ColorPicker extends View {
 	/**
 	 * The ARGB value of the center with the new selected color.
 	 */
-	protected static int mCenterNewColor;
+	protected int mCenterNewColor;
 
 	/**
 	 * Number of pixels the origin of this view is moved in X- and Y-direction.
@@ -170,7 +170,7 @@ public class ColorPicker extends View {
 	/**
 	 * The pointer's position expressed as angle (in rad).
 	 */
-	protected static float mAngle;
+	protected float mAngle;
 
 	/**
 	 * {@code Paint} instance used to draw the center with the old selected
@@ -182,13 +182,13 @@ public class ColorPicker extends View {
 	 * {@code Paint} instance used to draw the center with the new selected
 	 * color.
 	 */
-	protected static Paint mCenterNewPaint;
+	protected Paint mCenterNewPaint;
 
 	/**
 	 * {@code Paint} instance used to draw the halo of the center selected
 	 * colors.
 	 */
-	private Paint mCenterHaloPaint;
+	protected Paint mCenterHaloPaint;
 
 	/**
 	 * An array of floats that can be build into a {@code Color} <br>
@@ -529,7 +529,7 @@ public class ColorPicker extends View {
 	 * @return The angle (in rad) the "normalized" color is displayed on the
 	 *         color wheel.
 	 */
-	protected  static float colorToAngle(int color) {
+	protected float colorToAngle(int color) {
 		float[] colors = new float[3];
 		Color.colorToHSV(color, colors);
 

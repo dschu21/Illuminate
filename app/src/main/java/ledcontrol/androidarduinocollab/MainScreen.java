@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
+import android.renderscript.Sampler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,15 +31,15 @@ public class MainScreen extends Activity {
     private static CheckedTextView ctv3;
     private static CheckedTextView ctv4;
 
-    private static ImageView pattern1;
-    private static ImageView pattern2;
-    private static ImageView pattern3;
-    private static ImageView pattern4;
+    private ImageView pattern1;
+    private ImageView pattern2;
+    private ImageView pattern3;
+    private ImageView pattern4;
 
-    private static boolean pattern1Select;
-    private static boolean pattern2Select;
-    private static boolean pattern3Select;
-    private static boolean pattern4Select;
+    private boolean pattern1Select;
+    private boolean pattern2Select;
+    private boolean pattern3Select;
+    private boolean pattern4Select;
 
     private static ObjectAnimator pressedAnimator;
 
@@ -47,6 +48,9 @@ public class MainScreen extends Activity {
     private static ArrayAdapter<String> BTArrayAdapter = null;
     private static ListView connectController = null;
     private Toast warning;
+
+    private ColorPicker picker;
+    private ValueBar bar;
 
     private Handler mHandler = new Handler();
     private Runnable immersiveView = new Runnable() {
@@ -68,7 +72,8 @@ public class MainScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
         ValueBar vBar;
-        ColorPicker picker = (ColorPicker) findViewById(R.id.picker);
+        picker = (ColorPicker) findViewById(R.id.picker);
+        bar = (ValueBar) findViewById(R.id.valuebar);
 
         color1 = (CircleButton) findViewById(R.id.circle1);
         color2 = (CircleButton) findViewById(R.id.circle2);
@@ -206,22 +211,22 @@ public class MainScreen extends Activity {
 
     public void uncheckCTV(CircleButton button, CheckedTextView ctv, CheckedTextView ctv1,
                            CheckedTextView ctv2, CheckedTextView ctv3){
-
+        int color = button.getColor();
         if (!ctv.isChecked()) {
             ctv.toggle();
         }
         ctv1.setChecked(false);
         ctv2.setChecked(false);
         ctv3.setChecked(false);
-        ColorPicker.mAngle = ColorPicker.colorToAngle(button.getColor());
-        System.out.println("mangle" + ColorPicker.mAngle);
-        ColorPicker.mCenterNewColor = button.getColor();
-        System.out.println("center" + ColorPicker.mCenterNewColor);
-        ColorPicker.mCenterNewPaint.setColor(button.getColor());
-        System.out.println("centerpaint" + ColorPicker.mCenterNewPaint);
-        ColorPicker.mPointerColor.setColor(button.getColor());
-        //reset bar position
-        invalidateOptionsMenu();
+        picker.mAngle = picker.colorToAngle(color);
+        picker.mCenterNewColor = color;
+        picker.mCenterNewPaint.setColor(color);
+        picker.mPointerColor.setColor(color);
+        picker.mPointerHaloPaint.setColor(color);
+        picker.mPointerHaloPaint.setAlpha(0x50);
+
+        bar.setColor(color);
+        picker.invalidate();
 
     }
 
