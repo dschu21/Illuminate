@@ -157,6 +157,7 @@ public class ColorPicker extends View {
 	 */
 	private float mTranslationOffset;
 
+	protected int defaultColor = 0xff81ff00;
 	/**
 	 * Distance between pointer and user touch in X-direction.
 	 */
@@ -339,7 +340,7 @@ public class ColorPicker extends View {
 		mColorWheelPaint.setStrokeWidth(mColorWheelThickness);
 
 		mPointerHaloPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mPointerHaloPaint.setColor(0xff81ff00);
+		mPointerHaloPaint.setColor(defaultColor);
 		mPointerHaloPaint.setAlpha(0x50);
 
 		mPointerColor = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -354,7 +355,7 @@ public class ColorPicker extends View {
 		mCenterOldPaint.setStyle(Paint.Style.FILL);
 
 		mCenterHaloPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mCenterHaloPaint.setColor(0xff81ff00);
+		mCenterHaloPaint.setColor(defaultColor);
 		mCenterHaloPaint.setAlpha(0x00);
 
 		mCenterNewColor = calculateColor(mAngle);

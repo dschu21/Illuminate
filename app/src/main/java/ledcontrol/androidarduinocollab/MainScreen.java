@@ -2,21 +2,26 @@ package ledcontrol.androidarduinocollab;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.renderscript.Sampler;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Comparator;
 import java.util.Set;
 
 public class MainScreen extends Activity {
@@ -46,6 +51,8 @@ public class MainScreen extends Activity {
     private static int barPosition3;
     private static int barPosition4;
 
+    private int patternColor = 0xFF11BBFF;
+
     private static ObjectAnimator pressedAnimator;
 
     private static MainScreen mMainScreen = null;
@@ -58,6 +65,7 @@ public class MainScreen extends Activity {
     private ValueBar vBar;
 
     private Handler mHandler = new Handler();
+
     private Runnable immersiveView = new Runnable() {
         public void run() {
             getWindow().getDecorView().setSystemUiVisibility(
@@ -76,6 +84,10 @@ public class MainScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+        mMainScreen = MainScreen.this;
+        BTArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1);
+
         picker = (ColorPicker) findViewById(R.id.picker);
         vBar = (ValueBar) findViewById(R.id.valuebar);
 
@@ -104,8 +116,7 @@ public class MainScreen extends Activity {
         barPosition3 = vBar.mBarPointerHaloRadius;
         barPosition4 = vBar.mBarPointerHaloRadius;
 
-
-        pattern1.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
+        pattern1.setColorFilter(patternColor, PorterDuff.Mode.MULTIPLY);
 
         ctv1.setChecked(true);
 
@@ -266,6 +277,84 @@ public class MainScreen extends Activity {
             return barPosition3;
         else
             return barPosition4;
+    }
+
+    @Override
+    public void onWindowFocusChanged (boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+           // mHandler.post(immersiveView);
+        }
+    }
+
+    public static void explodeDialog2(){
+        mMainScreen.explodeDialog();
+    }
+
+    public void explodeDialog(){
+        if (MainScreenFragment.isConnected()) {
+            showToast("Please disconnect any bluetooth device before connecting a new device");
+            return;
+        }
+        // Clear BlueTooth list
+        BTArrayAdapter.clear();
+
+        // Get paired devices
+        pairedDevices = BluetoothAdapter.getDefaultAdapter().getBondedDevices();
+
+        for (BluetoothDevice device : pairedDevices) {
+            BTArrayAdapter.add(device.getName() + "\n"
+                    + device.getAddress());
+        }
+
+        // Sort the ListView
+        BTArrayAdapter.sort(new Comparator<String>() {
+            public int compare(String object1, String object2) {
+                int res = String.CASE_INSENSITIVE_ORDER.compare(
+                        object1.toString(), object2.toString());
+                return res;
+            }
+        });
+
+        // Build an alert dialog
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainScreen.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = inflater.inflate(R.layout.custom, null);
+        alertDialog.setView(convertView);
+        alertDialog.setTitle("Connect Controller");
+        connectController = (ListView) convertView
+                .findViewById(R.id.listView1);
+        connectController.setAdapter(BTArrayAdapter);
+        final Dialog dialog = alertDialog.show();
+
+        connectController.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // Get BlueTooth Address
+                String temp = (String) connectController.getAdapter().getItem(
+                        position);
+                String address = temp.substring(temp.length() - 17,
+                        temp.length());
+
+                Log.e("HI", address);
+
+                // Connect Device
+                MainScreenFragment.connect(address,getApplicationContext());
+
+                // Exit Dialog
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void showToast(String text) {
+        if (warning == null) {
+            warning = Toast.makeText(this,text,Toast.LENGTH_SHORT);
+        }
+        warning.setText(text);
+        warning.setDuration(Toast.LENGTH_SHORT);
+        warning.show();
     }
 
 }

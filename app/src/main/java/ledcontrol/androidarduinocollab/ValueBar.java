@@ -147,6 +147,8 @@ public class ValueBar extends View {
      * to the host activity/fragment
      */
     private OnValueChangedListener onValueChangedListener;
+
+	protected int defaultColor = 0xff81ff00;
     
 	/**
 	 * Value of the latest entry of the onValueChangedListener.
@@ -213,7 +215,7 @@ public class ValueBar extends View {
 		mBarPointerHaloPaint.setAlpha(0x50);
 
 		mBarPointerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		mBarPointerPaint.setColor(0xff81ff00); //danyon
+		mBarPointerPaint.setColor(defaultColor);
 
 
 
@@ -295,9 +297,9 @@ public class ValueBar extends View {
 		} else {
 			shader = new LinearGradient(mBarPointerHaloRadius, 0,
 					x1, y1,
-					new int[] { 0xff81ff00, Color.BLACK}, null,
+					new int[] { defaultColor, Color.BLACK}, null,
 					Shader.TileMode.CLAMP);
-			Color.colorToHSV(0xff81ff00, mHSVColor); //danyon
+			Color.colorToHSV(defaultColor, mHSVColor); //danyon
 		}
 
 		mBarPaint.setShader(shader);
