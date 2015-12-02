@@ -26,20 +26,20 @@ import java.util.Set;
 
 public class MainScreen extends Activity {
 
-    private static CircleButton color1;
-    private static CircleButton color2;
-    private static CircleButton color3;
-    private static CircleButton color4;
+    protected static CircleButton color1;
+    protected static CircleButton color2;
+    protected static CircleButton color3;
+    protected static CircleButton color4;
 
     private static CheckedTextView ctv1;
     private static CheckedTextView ctv2;
     private static CheckedTextView ctv3;
     private static CheckedTextView ctv4;
 
-    private ImageView pattern1;
-    private ImageView pattern2;
-    private ImageView pattern3;
-    private ImageView pattern4;
+    protected static ImageView pattern1;
+    protected static ImageView pattern2;
+    protected static ImageView pattern3;
+    protected static ImageView pattern4;
 
     private boolean pattern1Select;
     private boolean pattern2Select;
@@ -321,7 +321,7 @@ public class MainScreen extends Activity {
         LayoutInflater inflater = getLayoutInflater();
         View convertView = inflater.inflate(R.layout.custom, null);
         alertDialog.setView(convertView);
-        alertDialog.setTitle("Connect Controller");
+        alertDialog.setTitle("Connect");
         connectController = (ListView) convertView
                 .findViewById(R.id.listView1);
         connectController.setAdapter(BTArrayAdapter);
