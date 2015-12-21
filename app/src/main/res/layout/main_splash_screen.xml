@@ -35,7 +35,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:maxLines="1"
-            android:text="LED Light Control"
+            android:text="Illuminate"
             android:textSize="100sp" /> <!-- maximum size -->
 
 

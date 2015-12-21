@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -75,19 +74,19 @@ public class MainScreenFragment extends Fragment{
 
         final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        final TextView one = (TextView) rootView.findViewById(R.id.textView);
-        final TextView two = (TextView) rootView.findViewById(R.id.textView2);
-        final TextView three = (TextView) rootView.findViewById(R.id.textView3);
-        final TextView four = (TextView) rootView.findViewById(R.id.textView4);
-        final TextView five = (TextView) rootView.findViewById(R.id.textView5);
-        final TextView six = (TextView) rootView.findViewById(R.id.textView6);
-        final TextView seven = (TextView) rootView.findViewById(R.id.textView7);
-        final TextView eight = (TextView) rootView.findViewById(R.id.textView8);
-        final TextView nine = (TextView) rootView.findViewById(R.id.textView9);
-        final TextView ten = (TextView) rootView.findViewById(R.id.textView10);
-        final TextView eleven = (TextView) rootView.findViewById(R.id.textView11);
-        final TextView twelve = (TextView) rootView.findViewById(R.id.textView12);
-        final TextView thirteen = (TextView) rootView.findViewById(R.id.textView13);
+//        final TextView one = (TextView) rootView.findViewById(R.id.textView);
+//        final TextView two = (TextView) rootView.findViewById(R.id.textView2);
+//        final TextView three = (TextView) rootView.findViewById(R.id.textView3);
+//        final TextView four = (TextView) rootView.findViewById(R.id.textView4);
+//        final TextView five = (TextView) rootView.findViewById(R.id.textView5);
+//        final TextView six = (TextView) rootView.findViewById(R.id.textView6);
+//        final TextView seven = (TextView) rootView.findViewById(R.id.textView7);
+//        final TextView eight = (TextView) rootView.findViewById(R.id.textView8);
+//        final TextView nine = (TextView) rootView.findViewById(R.id.textView9);
+//        final TextView ten = (TextView) rootView.findViewById(R.id.textView10);
+//        final TextView eleven = (TextView) rootView.findViewById(R.id.textView11);
+//        final TextView twelve = (TextView) rootView.findViewById(R.id.textView12);
+//        final TextView thirteen = (TextView) rootView.findViewById(R.id.textView13);
 
 
         //final TextView serO = (TextView) rootView.findViewById(R.id.serialOut);
@@ -106,11 +105,14 @@ public class MainScreenFragment extends Fragment{
                             if(MainScreen.pattern1.getColorFilter()!= null)
                                 data_0 = data_0 | 0 ;
                             else if(MainScreen.pattern2.getColorFilter()!= null)
-                                data_0 = data_0 | 01 ;
+                                data_0 = data_0 | 1 ;
                             else if(MainScreen.pattern3.getColorFilter()!= null)
-                                data_0 = data_0 | 10 ;
+                                data_0 = data_0 | 2 ;
+                            else if(MainScreen.pattern3.getColorFilter()!= null)
+                                data_0 = data_0 | 3 ;
                             else
-                                data_0 = data_0 | 11 ;
+                                data_0 = data_0 | 4 ;
+
 
 
                             String bin1 =  new BigInteger(String.format("%08X", MainScreen.color1.getColor()), 16).toString(2);
@@ -135,21 +137,21 @@ public class MainScreenFragment extends Fragment{
 
 
 
-                            one.setText(String.valueOf(String.format("%03d", f1)));
-                            two.setText(String.valueOf(String.format("%03d", s2)));
-                            three.setText(String.valueOf(String.format("%03d", t3)));
-                            four.setText(String.valueOf(String.format("%083d", f4)));
-                            five.setText(String.valueOf(String.format("%03d", f5)));
-                            six.setText(String.valueOf(String.format("%03d", s6)));
-                            seven.setText(String.valueOf(String.format("%03d", s7)));
-                            eight.setText(String.valueOf(String.format("%03d", e8)));
-                            nine.setText(String.valueOf(String.format("%03d", n9)));
-                            ten.setText(String.valueOf(String.format("%03d", t10)));
-                            eleven.setText(String.valueOf(String.format("%03d", e11)));
-                            twelve.setText(String.valueOf(String.format("%03d", t12)));
-                            thirteen.setText(String.valueOf(String.format("%03d", t13)));
+//                            one.setText(String.valueOf(String.format("%03d", f1)));
+//                            two.setText(String.valueOf(String.format("%03d", s2)));
+//                            three.setText(String.valueOf(String.format("%03d", t3)));
+//                            four.setText(String.valueOf(String.format("%03d", f4)));
+//                            five.setText(String.valueOf(String.format("%03d", f5)));
+//                            six.setText(String.valueOf(String.format("%03d", s6)));
+//                            seven.setText(String.valueOf(String.format("%03d", s7)));
+//                            eight.setText(String.valueOf(String.format("%03d", e8)));
+//                            nine.setText(String.valueOf(String.format("%03d", n9)));
+//                            ten.setText(String.valueOf(String.format("%03d", t10)));
+//                            eleven.setText(String.valueOf(String.format("%03d", e11)));
+//                            twelve.setText(String.valueOf(String.format("%03d", t12)));
+//                            thirteen.setText(String.valueOf(String.format("%03d", t13)));
 
-                            CS = 8;
+                            CS = 26;
                             // XOR checksum
                             CS ^= f1;
                             CS ^= s2;
@@ -171,187 +173,235 @@ public class MainScreenFragment extends Fragment{
                             } catch (Exception e) {
                             }
                             case_++;
+
                             try {
                                 message = 0x85;
                                 outStream.write(message);
                             } catch (Exception e) {
                             }
                             case_++;
+
+
                             try {
                                 message = 0x1A;
                                 outStream.write(message);
                             } catch (Exception e) {
                             }
                             case_++;
-                            try {
-                                message = 0x08;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0x05;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 0;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_++;
-                            try {
-                                message = 1010;
-                                outStream.write(message);
-                            } catch (Exception e) {
-                            }
-                            case_ = 0;
 
+                            try {
+                                Thread.sleep(1);
+                            } catch(InterruptedException ex) {
+                                Thread.currentThread().interrupt();
+                            }
+
+
+                            try {
+                                message = f1;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+
+                            try {
+                                message = s2;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+                            try {
+                                message = t3;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+
+                            try {
+                                message = f4;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+                            try {
+                                Thread.sleep(1);
+                            } catch(InterruptedException ex) {
+                                Thread.currentThread().interrupt();
+                            }
+
+                            try {
+                                message = f5;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+
+                            try {
+                                message = s6;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+                            try {
+                                message = s7;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+
+                            try {
+                                message = e8;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+                            try {
+                                Thread.sleep(1);
+                            } catch(InterruptedException ex) {
+                                Thread.currentThread().interrupt();
+                            }
+
+                            try {
+                                message = n9;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+                            try {
+                                message = t10;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+                            try {
+                                message = e11;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+
+                            try {
+                                message = t12;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+                            try {
+                                Thread.sleep(1);
+                            } catch(InterruptedException ex) {
+                                Thread.currentThread().interrupt();
+                            }
+
+                            try {
+                                message = t13;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+                            try {
+                                message = 0;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_++;
+
+                            try {
+                                message = CS;
+                                outStream.write(message);
+                            } catch (Exception e) {
+                            }
+                            case_= 0;
 
                         }
                     }
                 });
             }
         };
+
+
         // Get Bluetooth adapter
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         checkBTState();
@@ -414,7 +464,7 @@ public class MainScreenFragment extends Fragment{
         try {
             outStream = mSocket.getOutputStream();
             if (!isSchedule) {
-                timer.schedule(sendMessage, 0, 1000);
+                timer.schedule(sendMessage, 0, 175);
                 isSchedule = true;
             } else {
                 Log.e("HI", "Timer already schedule");

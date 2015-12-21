@@ -40,11 +40,7 @@ public class MainScreen extends Activity {
     protected static ImageView pattern2;
     protected static ImageView pattern3;
     protected static ImageView pattern4;
-
-    private boolean pattern1Select;
-    private boolean pattern2Select;
-    private boolean pattern3Select;
-    private boolean pattern4Select;
+    protected static ImageView pattern5;
 
     private static int barPosition1;
     private static int barPosition2;
@@ -88,6 +84,7 @@ public class MainScreen extends Activity {
         BTArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1);
 
+
         picker = (ColorPicker) findViewById(R.id.picker);
         vBar = (ValueBar) findViewById(R.id.valuebar);
 
@@ -105,11 +102,7 @@ public class MainScreen extends Activity {
         pattern2 = (ImageView) findViewById(R.id.pattern2);
         pattern3 = (ImageView) findViewById(R.id.pattern3);
         pattern4 = (ImageView) findViewById(R.id.pattern4);
-
-        pattern1Select = true;
-        pattern1Select = false;
-        pattern1Select = false;
-        pattern1Select = false;
+        pattern5 = (ImageView) findViewById(R.id.pattern5);
 
         barPosition1 = vBar.mBarPointerHaloRadius;
         barPosition2 = vBar.mBarPointerHaloRadius;
@@ -124,6 +117,7 @@ public class MainScreen extends Activity {
         picker.getColor();
         picker.setOldCenterColor(picker.getColor());
         picker.setShowOldCenterColor(false);
+
 
 
         color1.setOnClickListener(new View.OnClickListener() {
@@ -157,25 +151,31 @@ public class MainScreen extends Activity {
         pattern1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFilter(pattern1, pattern1Select, pattern2Select, pattern3Select, pattern4Select);
+                setFilter(pattern1);
             }
         });
         pattern2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFilter(pattern2, pattern2Select, pattern1Select, pattern3Select, pattern4Select);
+                setFilter(pattern2);
             }
         });
         pattern3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFilter(pattern3, pattern3Select, pattern1Select, pattern2Select, pattern4Select);
+                setFilter(pattern3);
             }
         });
         pattern4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFilter(pattern4, pattern4Select, pattern1Select, pattern2Select, pattern3Select);
+                setFilter(pattern4);
+            }
+        });
+        pattern5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFilter(pattern5);
             }
         });
 
@@ -240,21 +240,15 @@ public class MainScreen extends Activity {
 
     }
 
-    public void setFilter(ImageView pattern, boolean pattern1, boolean pattern2,
-                          boolean pattern3, boolean pattern4){
+    public void setFilter(ImageView pattern){
 
-        pattern2 = false;
-        pattern3 = false;
-        pattern4 = false;
-        this.pattern1.clearColorFilter();
-        this.pattern2.clearColorFilter();
-        this.pattern3.clearColorFilter();
-        this.pattern4.clearColorFilter();
+        pattern1.clearColorFilter();
+        pattern2.clearColorFilter();
+        pattern3.clearColorFilter();
+        pattern4.clearColorFilter();
+        pattern5.clearColorFilter();
 
-        if(!pattern1){
-            pattern.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
-            pattern1 = true;
-        }
+        pattern.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
     }
 
     public static void setBarPosition(int position){
