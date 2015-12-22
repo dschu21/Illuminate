@@ -37,6 +37,8 @@ public class CircleButton extends ImageView {
     public static float mangle = (float) (-Math.PI / 2);
     private ObjectAnimator pressedAnimator;
 
+    private static MainScreenFragment mMainFrag = null;
+
     public CircleButton(Context context) {
         super(context);
         init(context, null);

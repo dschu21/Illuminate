@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,6 +42,9 @@ public class MainScreen extends Activity {
     protected static ImageView pattern3;
     protected static ImageView pattern4;
     protected static ImageView pattern5;
+    protected static ImageView pattern6;
+    protected static ImageView pattern7;
+
 
     private static int barPosition1;
     private static int barPosition2;
@@ -52,6 +56,7 @@ public class MainScreen extends Activity {
     private static ObjectAnimator pressedAnimator;
 
     private static MainScreen mMainScreen = null;
+    private static MainScreenFragment mMainFrag = null;
     private static Set<BluetoothDevice> pairedDevices = null;
     private static ArrayAdapter<String> BTArrayAdapter = null;
     private static ListView connectController = null;
@@ -81,6 +86,7 @@ public class MainScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
         mMainScreen = MainScreen.this;
+        mMainFrag = new MainScreenFragment();
         BTArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1);
 
@@ -103,6 +109,9 @@ public class MainScreen extends Activity {
         pattern3 = (ImageView) findViewById(R.id.pattern3);
         pattern4 = (ImageView) findViewById(R.id.pattern4);
         pattern5 = (ImageView) findViewById(R.id.pattern5);
+        pattern6 = (ImageView) findViewById(R.id.pattern6);
+        pattern7 = (ImageView) findViewById(R.id.pattern7);
+
 
         barPosition1 = vBar.mBarPointerHaloRadius;
         barPosition2 = vBar.mBarPointerHaloRadius;
@@ -151,31 +160,51 @@ public class MainScreen extends Activity {
         pattern1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMainFrag.sendInfo();
                 setFilter(pattern1);
             }
         });
         pattern2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMainFrag.sendInfo();
                 setFilter(pattern2);
             }
         });
         pattern3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMainFrag.sendInfo();
                 setFilter(pattern3);
             }
         });
         pattern4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMainFrag.sendInfo();
                 setFilter(pattern4);
             }
         });
         pattern5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mMainFrag.sendInfo();
                 setFilter(pattern5);
+            }
+        });
+        pattern6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainFrag.sendInfo();
+                setFilter(pattern6);
+            }
+        });
+        pattern7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMainFrag.sendInfo();
+
+                setFilter(pattern7);
             }
         });
 
@@ -247,8 +276,11 @@ public class MainScreen extends Activity {
         pattern3.clearColorFilter();
         pattern4.clearColorFilter();
         pattern5.clearColorFilter();
+        pattern6.clearColorFilter();
+        pattern7.clearColorFilter();
 
         pattern.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
+        mMainFrag.sendInfo();
     }
 
     public static void setBarPosition(int position){
@@ -349,6 +381,13 @@ public class MainScreen extends Activity {
         warning.setText(text);
         warning.setDuration(Toast.LENGTH_SHORT);
         warning.show();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mMainFrag.sendInfo();
+
+        return false;
     }
 
 }

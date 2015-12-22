@@ -155,6 +155,8 @@ public class ValueBar extends View {
 	 */
 	private int oldChangedListenerValue;
 
+	private static MainScreenFragment mMainFrag = null;
+
 	public interface OnValueChangedListener {
         public void onValueChanged(int value);
     }
@@ -183,6 +185,8 @@ public class ValueBar extends View {
 	}
 
 	private void init(AttributeSet attrs, int defStyle) {
+
+		mMainFrag = new MainScreenFragment();
 		final TypedArray a = getContext().obtainStyledAttributes(attrs,
 				R.styleable.ColorBars, defStyle, 0);
 		final Resources b = getContext().getResources();
@@ -342,8 +346,8 @@ public class ValueBar extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		mMainFrag.sendInfo();
 		getParent().requestDisallowInterceptTouchEvent(true);
-
 		// Convert coordinates to our internal coordinate system
 		float dimen;
 		if (mOrientation == ORIENTATION_HORIZONTAL) {

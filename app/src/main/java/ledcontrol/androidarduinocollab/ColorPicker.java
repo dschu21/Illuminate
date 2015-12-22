@@ -300,8 +300,10 @@ public class ColorPicker extends View {
 	 * Color of the latest entry of the onColorSelectedListener.
 	 */
 	private int oldSelectedListenerColor;
-
+	private static MainScreenFragment mMainFrag = null;
 	private void init(AttributeSet attrs, int defStyle) {
+
+		mMainFrag = new MainScreenFragment();
 		final TypedArray a = getContext().obtainStyledAttributes(attrs,
 				R.styleable.ColorPicker, defStyle, 0);
 		final Resources b = getContext().getResources();
@@ -539,6 +541,7 @@ public class ColorPicker extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		mMainFrag.sendInfo();
 		getParent().requestDisallowInterceptTouchEvent(true);
 
 		// Convert coordinates to our internal coordinate system

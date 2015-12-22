@@ -69,7 +69,9 @@ void loop() {
         twelfth = mydata.twe;
         thirteenth = mydata.thi;
 
-        switch(first) {
+        
+        }
+       switch(first) {
           case 0:   straight();
                     break;
           case 1:   pulse();
@@ -78,10 +80,12 @@ void loop() {
                     break;
           case 3:   point(25);
                     break;
-          case 4:   breathe(20);
+          case 4:   breathe(15);
                     break;
-        }
-       
+          case 5:   chase(40);
+                    break;
+          case 6:   chaseRainbow(40);
+                    break;
      }
 }
 
@@ -231,7 +235,7 @@ void point(uint8_t wait) {
 void breathe(uint8_t wait) {
  uint16_t i, j;
 
-  for(j=0; j<256*5; j++) { // 5 cycles of all colors on wheel
+  for(j=0; j<256*3; j++) { // 3 cycles of all colors on wheel
     for(i=0; i< strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
     }
@@ -239,7 +243,40 @@ void breathe(uint8_t wait) {
     delay(wait);
   }
 }
-        
+
+void chase(uint8_t wait) {
+    for (int j=0; j < 3; j++) {  
+      for (int q=0; q < 3; q++) {
+        for (int i=0; i < strip.numPixels(); i=i+3) {
+          strip.setPixelColor(i+q, 255, 255, 255);    //turn every third pixel on
+        }
+        strip.show();
+        delay(wait);
+  
+        for (int i=0; i < strip.numPixels(); i=i+3) {
+          strip.setPixelColor(i+q, 0);        //turn every third pixel off
+        }
+      }
+   }
+}
+
+void chaseRainbow(uint8_t wait) {
+  for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
+    for (int q=0; q < 3; q++) {
+      for (int i=0; i < strip.numPixels(); i=i+3) {
+        strip.setPixelColor(i+q, Wheel( (i+j) % 255));    //turn every third pixel on
+      }
+      strip.show();
+
+      delay(wait);
+
+      for (int i=0; i < strip.numPixels(); i=i+3) {
+        strip.setPixelColor(i+q, 0);        //turn every third pixel off
+      }
+    }
+  }
+}
+
 
 
 void flash() {
@@ -251,12 +288,16 @@ void flash() {
 }
 
 void triangleErase() {
-        for (int i = 0 ; i<30; i++){
-              strip.setPixelColor(30-i,0, 0, 0);
-              strip.setPixelColor(30+i,0, 0, 0);
-              strip.show();
-              delay(25);
+       for (int i = -2 ; i<60/2 + 2; i++){
+        for (int j = i-2 ; j < i+2; j++){
+          if( j>= 0 && j<=60){
+            strip.setPixelColor(j, 0, 0, 0);
+            strip.setPixelColor(60-j, 0, 0, 0);
+          }
         }
+        strip.show();
+        delay(25);
+       }
 }
 
 

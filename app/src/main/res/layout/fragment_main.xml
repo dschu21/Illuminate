@@ -172,6 +172,7 @@ android:layout_height="match_parent">
             android:layout_below="@+id/displaylabel"
             android:layout_marginTop="15dp"
             android:adjustViewBounds="true"
+            android:clickable="true"
             android:layout_centerHorizontal="true" />
 
         <ImageView
@@ -182,6 +183,7 @@ android:layout_height="match_parent">
             android:layout_below="@+id/pattern1"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
+            android:clickable="true"
             android:src="@drawable/heaviside" />
 
         <ImageView
@@ -192,6 +194,7 @@ android:layout_height="match_parent">
             android:layout_below="@+id/pattern2"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
+            android:clickable="true"
             android:src="@drawable/sinusoid" />
 
         <ImageView
@@ -202,6 +205,7 @@ android:layout_height="match_parent">
             android:layout_below="@+id/pattern3"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
+            android:clickable="true"
             android:src="@drawable/triangular" />
 
         <ImageView
@@ -212,7 +216,31 @@ android:layout_height="match_parent">
             android:layout_below="@+id/pattern4"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
+            android:clickable="true"
             android:src="@drawable/breathe" />
+
+        <ImageView
+            android:id="@+id/pattern6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/pattern5"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:src="@drawable/theatre"/>
+
+        <ImageView
+            android:id="@+id/pattern7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/pattern6"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:src="@drawable/theatrerainbow" />
+
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
