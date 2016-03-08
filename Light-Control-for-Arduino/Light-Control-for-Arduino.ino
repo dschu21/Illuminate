@@ -33,8 +33,7 @@ struct RECEIVE_DATA_STRUCTURE{
 RECEIVE_DATA_STRUCTURE mydata;
 
   int first = 0, second = 0, third = 0, fourth = 0, fifth = 0, sixth = 0, seventh = 0, eighth = 0, ninth = 0, tenth = 0, eleventh = 0, twelfth = 0, thirteenth = 0;
-  int light1_0, light1_1, light2_0, light2_1, light3_0, light3_1, light4_0, light4_1;
-  
+  int brightness = 64;
 void setup() {
     pinMode(6, OUTPUT);
     pinMode(9, OUTPUT);  // this pin will pull the HC-05 pin 34 (key pin) HIGH to switch module to AT mode
@@ -45,12 +44,13 @@ void setup() {
     ET.begin(details(mydata), &BTSerial);
     
     strip.begin();
-    strip.setBrightness(64);
+    strip.setBrightness(brightness);
     strip.show(); // Initialize all pixels to 'off'
 
 }
 
 void loop() {
+
      if (ET.receiveData()){
         //assign software serial struct objects to variables
         //message is 4 bits long
@@ -68,107 +68,63 @@ void loop() {
         eleventh = mydata.ele; 
         twelfth = mydata.twe;
         thirteenth = mydata.thi;
-
-        
-        }
-       switch(first) {
-          case 0:   straight();
+    }
+        switch(first) {
+          case 0:   white();
                     break;
-          case 1:   pulse();
+          case 1:   solid();
                     break;
-          case 2:   wave(50);
+          case 2:   straight();
                     break;
-          case 3:   point(25);
+          case 3:   point(100);
                     break;
           case 4:   breathe(15);
                     break;
-          case 5:   chase(40);
+          case 5:   chaseRainbow(100);
                     break;
-          case 6:   chaseRainbow(40);
+          default:
                     break;
-     }
+        }
+       
+     
+}
+
+void white() {
+      for (int i = 0 ; i<60; i++){
+          strip.setPixelColor(i, brightness, brightness, brightness);
+       }
+       strip.show();
+}
+
+void solid() {
+      for (int i = 0 ; i<60; i++){
+          strip.setPixelColor(i, second, third, fourth);
+       }
+       strip.show();
 }
 
 void straight() {
-       for (int i = 0 ; i<60; i+=4)
+       for (int i = 0 ; i<60; i+=4){
           strip.setPixelColor(i, second, third, fourth);
-       for (int i = 1 ; i<60; i+=4)
+       }
+       check();
+       for (int i = 1 ; i<60; i+=4){
           strip.setPixelColor(i, fifth, sixth, seventh);
-       for (int i = 2 ; i<60; i+=4)
+       }
+       check();
+       for (int i = 2 ; i<60; i+=4){
           strip.setPixelColor(i, eighth, ninth, tenth);
-       for (int i = 3 ; i<60; i+=4)
+        }
+       check();
+       for (int i = 3 ; i<60; i+=4){
           strip.setPixelColor(i, eleventh, twelfth, thirteenth);
+       }
+       check();
           
        strip.show();
         
 }
 
-void pulse() {
-       for (int i = 0 ; i<60; i++)
-          strip.setPixelColor(i, second, third, fourth);
-       flash();
-       
-       for (int i = 0 ; i<60; i++)
-          strip.setPixelColor(i, fifth, sixth, seventh);
-       flash();
-       
-       for (int i = 0 ; i<60; i++)
-          strip.setPixelColor(i, eighth, ninth, tenth);
-       flash();
-       
-       for (int i = 0 ; i<60; i++)
-          strip.setPixelColor(i, eleventh, twelfth, thirteenth);
-       flash();
-          
-}
-
-void wave(uint8_t wait) {       
-       for (int i = -5 ; i < 64; i++) {
-          for (int j = i-4 ; j<i+4; j++){
-              if( j>= 0 && j<=60)
-                strip.setPixelColor(j, second, third, fourth);
-          }
-          strip.show();
-          delay(wait);
-       }
-       delay(250);
-        
-       for (int i = -5 ; i < 64; i++) {
-          for (int j = i-4 ; j<i+4; j++){
-              if( j>= 0 && j<=60)
-                strip.setPixelColor(j, fifth, sixth, seventh);
-          }
-          strip.show();
-          delay(wait);
-       }
-       delay(250);
-  
-       for (int i = -5 ; i < 64; i++) {
-          for (int j = i-4 ; j<i+4; j++){
-              if( j>= 0 && j<=60)
-                strip.setPixelColor(j, eighth, ninth, tenth);
-          }
-          strip.show();
-          delay(wait);
-       }
-       delay(250);
-       
-     
-        
-       for (int i = -5 ; i < 64; i++) {
-          for (int j = i-4 ; j<i+4; j++){
-              if( j>= 0 && j<=60)
-                strip.setPixelColor(j, eleventh, twelfth, thirteenth);
-          }
-          strip.show();
-          delay(wait);
-       }
-       delay(250);
-       
- 
-      
-
-}
 
 void point(uint8_t wait) {    
         for (int i = -2 ; i<60/2 + 2; i++){
@@ -177,12 +133,13 @@ void point(uint8_t wait) {
               strip.setPixelColor(j, second, third, fourth);
               strip.setPixelColor(60-j, second, third, fourth);
             }
+            check();
           }
           strip.show();
           delay(wait);
         }
         delay(50); 
-        triangleErase();
+        pointErase(wait);
         delay(100); 
 
         for (int i = -2 ; i<60/2 + 2; i++){
@@ -191,12 +148,13 @@ void point(uint8_t wait) {
               strip.setPixelColor(j, fifth, sixth, seventh);
               strip.setPixelColor(60-j,fifth, sixth, seventh);
             }
+            check();
           }
           strip.show();
           delay(wait);
         }
         delay(50); 
-        triangleErase();
+        pointErase(wait);
         delay(100); 
 
         for (int i = -2 ; i<60/2 + 2; i++){
@@ -205,12 +163,13 @@ void point(uint8_t wait) {
               strip.setPixelColor(j, eighth, ninth, tenth);
               strip.setPixelColor(60-j, eighth, ninth, tenth);
             }
+            check();
           }
           strip.show();
           delay(wait);
         }
         delay(50); 
-        triangleErase();
+        pointErase(wait);
         delay(100); 
 
         for (int i = -2 ; i<60/2 + 2; i++){
@@ -219,12 +178,13 @@ void point(uint8_t wait) {
               strip.setPixelColor(j, eleventh, twelfth, thirteenth);
               strip.setPixelColor(60-j, eleventh, twelfth, thirteenth);
             }
+            check();
           }
           strip.show();
           delay(wait);
         }
         delay(50); 
-        triangleErase();
+        pointErase(wait);
         delay(100); 
 
         
@@ -241,23 +201,8 @@ void breathe(uint8_t wait) {
     }
     strip.show();
     delay(wait);
+    check();
   }
-}
-
-void chase(uint8_t wait) {
-    for (int j=0; j < 3; j++) {  
-      for (int q=0; q < 3; q++) {
-        for (int i=0; i < strip.numPixels(); i=i+3) {
-          strip.setPixelColor(i+q, 255, 255, 255);    //turn every third pixel on
-        }
-        strip.show();
-        delay(wait);
-  
-        for (int i=0; i < strip.numPixels(); i=i+3) {
-          strip.setPixelColor(i+q, 0);        //turn every third pixel off
-        }
-      }
-   }
 }
 
 void chaseRainbow(uint8_t wait) {
@@ -267,27 +212,17 @@ void chaseRainbow(uint8_t wait) {
         strip.setPixelColor(i+q, Wheel( (i+j) % 255));    //turn every third pixel on
       }
       strip.show();
-
       delay(wait);
-
+      check();
       for (int i=0; i < strip.numPixels(); i=i+3) {
         strip.setPixelColor(i+q, 0);        //turn every third pixel off
       }
     }
+    check();
   }
 }
 
-
-
-void flash() {
-       strip.show();
-       delay(2500);
-       erase();
-       strip.show();
-       delay(1000);
-}
-
-void triangleErase() {
+void pointErase(uint8_t wait) {
        for (int i = -2 ; i<60/2 + 2; i++){
         for (int j = i-2 ; j < i+2; j++){
           if( j>= 0 && j<=60){
@@ -296,10 +231,10 @@ void triangleErase() {
           }
         }
         strip.show();
-        delay(25);
+        delay(wait);
+        check();
        }
 }
-
 
 
 void erase() {
@@ -320,4 +255,20 @@ uint32_t Wheel(byte WheelPos) {
   return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
 }
 
-
+void check(){
+  if (ET.receiveData()){
+        first = mydata.one;
+        second = mydata.two;
+        third = mydata.thr;
+        fourth = mydata.fou;
+        fifth = mydata.fiv;
+        sixth = mydata.six;
+        seventh = mydata.sev;
+        eighth = mydata.eig;
+        ninth = mydata.nin;
+        tenth = mydata.ten; 
+        eleventh = mydata.ele; 
+        twelfth = mydata.twe;
+        thirteenth = mydata.thi;
+  }
+}

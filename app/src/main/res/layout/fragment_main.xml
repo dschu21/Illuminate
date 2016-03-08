@@ -168,12 +168,13 @@ android:layout_height="match_parent">
             android:id="@+id/pattern1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/line"
+
             android:layout_below="@+id/displaylabel"
             android:layout_marginTop="15dp"
             android:adjustViewBounds="true"
             android:clickable="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/white"/>
 
         <ImageView
             android:id="@+id/pattern2"
@@ -184,7 +185,7 @@ android:layout_height="match_parent">
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:clickable="true"
-            android:src="@drawable/heaviside" />
+            android:src="@drawable/blank" />
 
         <ImageView
             android:id="@+id/pattern3"
@@ -195,7 +196,7 @@ android:layout_height="match_parent">
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:clickable="true"
-            android:src="@drawable/sinusoid" />
+            android:src="@drawable/line"/>
 
         <ImageView
             android:id="@+id/pattern4"
@@ -225,17 +226,6 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/pattern5"
-            android:layout_centerHorizontal="true"
-            android:adjustViewBounds="true"
-            android:clickable="true"
-            android:src="@drawable/theatre"/>
-
-        <ImageView
-            android:id="@+id/pattern7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_below="@+id/pattern6"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:clickable="true"

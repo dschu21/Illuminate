@@ -43,7 +43,6 @@ public class MainScreen extends Activity {
     protected static ImageView pattern4;
     protected static ImageView pattern5;
     protected static ImageView pattern6;
-    protected static ImageView pattern7;
 
 
     private static int barPosition1;
@@ -110,8 +109,6 @@ public class MainScreen extends Activity {
         pattern4 = (ImageView) findViewById(R.id.pattern4);
         pattern5 = (ImageView) findViewById(R.id.pattern5);
         pattern6 = (ImageView) findViewById(R.id.pattern6);
-        pattern7 = (ImageView) findViewById(R.id.pattern7);
-
 
         barPosition1 = vBar.mBarPointerHaloRadius;
         barPosition2 = vBar.mBarPointerHaloRadius;
@@ -199,14 +196,6 @@ public class MainScreen extends Activity {
                 setFilter(pattern6);
             }
         });
-        pattern7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMainFrag.sendInfo();
-
-                setFilter(pattern7);
-            }
-        });
 
 
     }
@@ -277,7 +266,6 @@ public class MainScreen extends Activity {
         pattern4.clearColorFilter();
         pattern5.clearColorFilter();
         pattern6.clearColorFilter();
-        pattern7.clearColorFilter();
 
         pattern.setColorFilter(0xFF11BBFF, PorterDuff.Mode.MULTIPLY);
         mMainFrag.sendInfo();

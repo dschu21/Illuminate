@@ -42,7 +42,6 @@ public class MainScreenFragment extends Fragment{
     private int case_ = 0;
     private int message = 0;
 
-
     private int f1;
     private int s2;
     private int t3;
@@ -59,7 +58,7 @@ public class MainScreenFragment extends Fragment{
 
     private int CS;
 
-
+    private int FULL = 255;
     private int data_0 = 0;
 
     private static MainScreenFragment mMainFrag = null;
@@ -139,48 +138,46 @@ public class MainScreenFragment extends Fragment{
         return rootView; //what should i return if i have no rootview. do i need a rootview?
     }
     protected void sendInfo() {
-        if (outStream != null) {
+     //   if (outStream != null) {
             // encode data into blocks
 
+  //      if(change()) {
             data_0 = 0;
 
-            if(MainScreen.pattern1.getColorFilter()!= null)
-                data_0 = data_0 | 0 ;
-            else if(MainScreen.pattern2.getColorFilter()!= null)
-                data_0 = data_0 | 1 ;
-            else if(MainScreen.pattern3.getColorFilter()!= null)
-                data_0 = data_0 | 2 ;
-            else if(MainScreen.pattern4.getColorFilter()!= null)
-                data_0 = data_0 | 3 ;
-            else if(MainScreen.pattern5.getColorFilter()!= null)
-                data_0 = data_0 | 4 ;
-            else if(MainScreen.pattern6.getColorFilter()!= null)
-                data_0 = data_0 | 5 ;
+            if (MainScreen.pattern1.getColorFilter() != null)
+                data_0 = data_0 | 0;
+            else if (MainScreen.pattern2.getColorFilter() != null)
+                data_0 = data_0 | 1;
+            else if (MainScreen.pattern3.getColorFilter() != null)
+                data_0 = data_0 | 2;
+            else if (MainScreen.pattern4.getColorFilter() != null)
+                data_0 = data_0 | 3;
+            else if (MainScreen.pattern5.getColorFilter() != null)
+                data_0 = data_0 | 4;
             else
-                data_0 = data_0 | 6 ;
+                data_0 = data_0 | 5;
 
 
 
-            String bin1 =  new BigInteger(String.format("%08X", MainScreen.color1.getColor()), 16).toString(2);
-            String bin2 =  new BigInteger(String.format("%08X", MainScreen.color2.getColor()), 16).toString(2);
-            String bin3 =  new BigInteger(String.format("%08X", MainScreen.color3.getColor()), 16).toString(2);
-            String bin4 =  new BigInteger(String.format("%08X", MainScreen.color4.getColor()), 16).toString(2);
-            int full = 255;
+            String bin1 = new BigInteger(String.format("%08X", MainScreen.color1.getColor()), 16).toString(2);
+            String bin2 = new BigInteger(String.format("%08X", MainScreen.color2.getColor()), 16).toString(2);
+            String bin3 = new BigInteger(String.format("%08X", MainScreen.color3.getColor()), 16).toString(2);
+            String bin4 = new BigInteger(String.format("%08X", MainScreen.color4.getColor()), 16).toString(2);
+
             // break down into 4 bytes for transmission
             f1 = data_0;
-            s2 = Integer.parseInt(bin1.substring(8, 16), 2)*(Integer.parseInt(bin1.substring(0, 8), 2)/full);
-            t3 = Integer.parseInt(bin1.substring(16, 24), 2)*(Integer.parseInt(bin1.substring(0, 8), 2)/full);
-            f4 = Integer.parseInt(bin1.substring(24, 32), 2)*(Integer.parseInt(bin1.substring(0, 8), 2)/full);
-            f5 = Integer.parseInt(bin2.substring(8, 16), 2)*(Integer.parseInt(bin2.substring(0, 8), 2)/full);
-            s6 = Integer.parseInt(bin2.substring(16, 24), 2)*(Integer.parseInt(bin2.substring(0, 8), 2)/full);
-            s7 = Integer.parseInt(bin2.substring(24, 32), 2)*(Integer.parseInt(bin2.substring(0, 8), 2)/full);
-            e8 = Integer.parseInt(bin3.substring(8, 16), 2)*(Integer.parseInt(bin3.substring(0, 8), 2)/full);
-            n9 = Integer.parseInt(bin3.substring(16, 24), 2)*(Integer.parseInt(bin3.substring(0, 8), 2)/full);
-            t10 = Integer.parseInt(bin3.substring(24, 32), 2)*(Integer.parseInt(bin3.substring(0, 8), 2)/full);
-            e11 = Integer.parseInt(bin4.substring(8, 16), 2)*(Integer.parseInt(bin4.substring(0, 8), 2)/full);
-            t12 = Integer.parseInt(bin4.substring(16, 24), 2)*(Integer.parseInt(bin4.substring(0, 8), 2)/full);
-            t13 = Integer.parseInt(bin4.substring(24, 32), 2)*(Integer.parseInt(bin4.substring(0, 8), 2)/full);
-
+            s2 = Integer.parseInt(bin1.substring(8, 16), 2) * (Integer.parseInt(bin1.substring(0, 8), 2) / FULL);
+            t3 = Integer.parseInt(bin1.substring(16, 24), 2) * (Integer.parseInt(bin1.substring(0, 8), 2) / FULL);
+            f4 = Integer.parseInt(bin1.substring(24, 32), 2) * (Integer.parseInt(bin1.substring(0, 8), 2) / FULL);
+            f5 = Integer.parseInt(bin2.substring(8, 16), 2) * (Integer.parseInt(bin2.substring(0, 8), 2) / FULL);
+            s6 = Integer.parseInt(bin2.substring(16, 24), 2) * (Integer.parseInt(bin2.substring(0, 8), 2) / FULL);
+            s7 = Integer.parseInt(bin2.substring(24, 32), 2) * (Integer.parseInt(bin2.substring(0, 8), 2) / FULL);
+            e8 = Integer.parseInt(bin3.substring(8, 16), 2) * (Integer.parseInt(bin3.substring(0, 8), 2) / FULL);
+            n9 = Integer.parseInt(bin3.substring(16, 24), 2) * (Integer.parseInt(bin3.substring(0, 8), 2) / FULL);
+            t10 = Integer.parseInt(bin3.substring(24, 32), 2) * (Integer.parseInt(bin3.substring(0, 8), 2) / FULL);
+            e11 = Integer.parseInt(bin4.substring(8, 16), 2) * (Integer.parseInt(bin4.substring(0, 8), 2) / FULL);
+            t12 = Integer.parseInt(bin4.substring(16, 24), 2) * (Integer.parseInt(bin4.substring(0, 8), 2) / FULL);
+            t13 = Integer.parseInt(bin4.substring(24, 32), 2) * (Integer.parseInt(bin4.substring(0, 8), 2) / FULL);
 
 
 //                            one.setText(String.valueOf(String.format("%03d", f1)));
@@ -237,7 +234,7 @@ public class MainScreenFragment extends Fragment{
 
             try {
                 Thread.sleep(1);
-            } catch(InterruptedException ex) {
+            } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
 
@@ -298,7 +295,7 @@ public class MainScreenFragment extends Fragment{
 
             try {
                 Thread.sleep(1);
-            } catch(InterruptedException ex) {
+            } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
 
@@ -358,7 +355,7 @@ public class MainScreenFragment extends Fragment{
 
             try {
                 Thread.sleep(1);
-            } catch(InterruptedException ex) {
+            } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
 
@@ -417,7 +414,7 @@ public class MainScreenFragment extends Fragment{
 
             try {
                 Thread.sleep(1);
-            } catch(InterruptedException ex) {
+            } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
 
@@ -439,11 +436,49 @@ public class MainScreenFragment extends Fragment{
                 outStream.write(message);
             } catch (Exception e) {
             }
-            case_= 0;
+            case_ = 0;
 
-        }
+//        }
     }
+/*
+    private boolean change(){
 
+        String bin1 = new BigInteger(String.format("%08X", MainScreen.color1.getColor()), 16).toString(2);
+        String bin2 = new BigInteger(String.format("%08X", MainScreen.color2.getColor()), 16).toString(2);
+        String bin3 = new BigInteger(String.format("%08X", MainScreen.color3.getColor()), 16).toString(2);
+        String bin4 = new BigInteger(String.format("%08X", MainScreen.color4.getColor()), 16).toString(2);
+
+
+        if(f1 != data_0)
+            return true;
+        if(s2 != (Integer.parseInt(bin1.substring(8, 16), 2) * (Integer.parseInt(bin1.substring(0, 8), 2) / FULL)))
+            return true;
+        if(t3 != (Integer.parseInt(bin1.substring(16, 24), 2) * (Integer.parseInt(bin1.substring(0, 8), 2) / FULL)))
+            return true;
+        if(f4 != (Integer.parseInt(bin1.substring(24, 32), 2) * (Integer.parseInt(bin1.substring(0, 8), 2) / FULL)))
+            return true;
+        if(f5 != (Integer.parseInt(bin2.substring(8, 16), 2) * (Integer.parseInt(bin2.substring(0, 8), 2) / FULL)))
+            return true;
+        if(s6 != (Integer.parseInt(bin2.substring(16, 24), 2) * (Integer.parseInt(bin2.substring(0, 8), 2) / FULL)))
+            return true;
+        if(s7 != (Integer.parseInt(bin2.substring(24, 32), 2) * (Integer.parseInt(bin2.substring(0, 8), 2) / FULL)))
+            return true;
+        if(e8 != (Integer.parseInt(bin3.substring(8, 16), 2) * (Integer.parseInt(bin3.substring(0, 8), 2) / FULL)))
+            return true;
+        if(n9 != (Integer.parseInt(bin3.substring(16, 24), 2) * (Integer.parseInt(bin3.substring(0, 8), 2) / FULL)))
+            return true;
+        if(t10 != (Integer.parseInt(bin3.substring(24, 32), 2) * (Integer.parseInt(bin3.substring(0, 8), 2) / FULL)))
+            return true;
+        if(e11 != (Integer.parseInt(bin4.substring(8, 16), 2) * (Integer.parseInt(bin4.substring(0, 8), 2) / FULL)))
+            return true;
+        if(t12 != (Integer.parseInt(bin4.substring(16, 24), 2) * (Integer.parseInt(bin4.substring(0, 8), 2) / FULL)))
+            return true;
+        if(t13 != (Integer.parseInt(bin4.substring(24, 32), 2) * (Integer.parseInt(bin4.substring(0, 8), 2) / FULL)))
+            return true;
+
+        return false;
+    }
+*/
     private static BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
         if (Build.VERSION.SDK_INT >= 10) {
             try {
@@ -484,7 +519,7 @@ public class MainScreenFragment extends Fragment{
             outStream = mSocket.getOutputStream();
 
             if (!isSchedule) {
-                timer.schedule(sendMessage, 0, 1500);
+                timer.schedule(sendMessage, 0, 250);
                 mMainFrag.sendInfo();
                 isSchedule = true;
             } else {
