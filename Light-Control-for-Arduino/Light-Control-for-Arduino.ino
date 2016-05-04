@@ -4,7 +4,7 @@
 #include <SoftwareSerial.h>
 
 #define PIN 6
-#define LEDNUM 60
+#define LEDNUM 144
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDNUM, PIN, NEO_GRB + NEO_KHZ800);
 
 SoftwareSerial BTSerial(10, 11); // TX | RX 
@@ -33,8 +33,12 @@ struct RECEIVE_DATA_STRUCTURE{
 RECEIVE_DATA_STRUCTURE mydata;
 
   int first = 0, second = 0, third = 0, fourth = 0, fifth = 0, sixth = 0, seventh = 0, eighth = 0, ninth = 0, tenth = 0, eleventh = 0, twelfth = 0, thirteenth = 0;
-  int brightness = 64;
+  int brightness = 56;
+  
+  uint16_t j = 0, q = 0;
+  
 void setup() {
+    
     pinMode(6, OUTPUT);
     pinMode(9, OUTPUT);  // this pin will pull the HC-05 pin 34 (key pin) HIGH to switch module to AT mode
     digitalWrite(9, HIGH);
@@ -50,7 +54,6 @@ void setup() {
 }
 
 void loop() {
-
      if (ET.receiveData()){
         //assign software serial struct objects to variables
         //message is 4 bits long
@@ -80,46 +83,48 @@ void loop() {
                     break;
           case 4:   breathe(15);
                     break;
-          case 5:   chaseRainbow(100);
+          case 5:   chaseRainbow(50);
                     break;
           default:
                     break;
-        }
+        }   
        
      
 }
 
 void white() {
-      for (int i = 0 ; i<60; i++){
-          strip.setPixelColor(i, brightness, brightness, brightness);
+    erase();
+      for (int i = 0 ; i<144; i++){
+        if(i%3==0)
+          strip.setPixelColor(i, brightness/2, brightness/2, brightness/2);
        }
        strip.show();
 }
 
 void solid() {
-      for (int i = 0 ; i<60; i++){
+      for (int i = 0 ; i<144; i++){
           strip.setPixelColor(i, second, third, fourth);
        }
        strip.show();
 }
 
 void straight() {
-       for (int i = 0 ; i<60; i+=4){
+       for (int i = 0 ; i<144; i+=4){
           strip.setPixelColor(i, second, third, fourth);
        }
-       check();
-       for (int i = 1 ; i<60; i+=4){
+
+       for (int i = 1 ; i<144; i+=4){
           strip.setPixelColor(i, fifth, sixth, seventh);
        }
-       check();
-       for (int i = 2 ; i<60; i+=4){
+
+       for (int i = 2 ; i<144; i+=4){
           strip.setPixelColor(i, eighth, ninth, tenth);
         }
-       check();
-       for (int i = 3 ; i<60; i+=4){
+
+       for (int i = 3 ; i<144; i+=4){
           strip.setPixelColor(i, eleventh, twelfth, thirteenth);
        }
-       check();
+
           
        strip.show();
         
@@ -127,118 +132,70 @@ void straight() {
 
 
 void point(uint8_t wait) {    
-        for (int i = -2 ; i<60/2 + 2; i++){
-          for (int j = i-2 ; j < i+2; j++){
-            if( j>= 0 && j<=60){
-              strip.setPixelColor(j, second, third, fourth);
-              strip.setPixelColor(60-j, second, third, fourth);
-            }
-            check();
-          }
-          strip.show();
-          delay(wait);
+        for (int i = 0 ; i<144/4; i++){
+          strip.setPixelColor(i, first, second, third);
         }
-        delay(50); 
-        pointErase(wait);
-        delay(100); 
 
-        for (int i = -2 ; i<60/2 + 2; i++){
-          for (int j = i-2 ; j < i+2; j++){
-            if( j>= 0 && j<=60){
-              strip.setPixelColor(j, fifth, sixth, seventh);
-              strip.setPixelColor(60-j,fifth, sixth, seventh);
-            }
-            check();
-          }
-          strip.show();
-          delay(wait);
+        for (int i = 144/4 ; i<144/2; i++){
+          strip.setPixelColor(i, fifth, sixth, seventh);
         }
-        delay(50); 
-        pointErase(wait);
-        delay(100); 
 
-        for (int i = -2 ; i<60/2 + 2; i++){
-          for (int j = i-2 ; j < i+2; j++){
-            if( j>= 0 && j<=60){
-              strip.setPixelColor(j, eighth, ninth, tenth);
-              strip.setPixelColor(60-j, eighth, ninth, tenth);
-            }
-            check();
-          }
-          strip.show();
-          delay(wait);
+        for (int i = 144/2 ; i<3*144/4; i++){
+          strip.setPixelColor(i, eighth, ninth, tenth);
         }
-        delay(50); 
-        pointErase(wait);
-        delay(100); 
 
-        for (int i = -2 ; i<60/2 + 2; i++){
-          for (int j = i-2 ; j < i+2; j++){
-            if( j>= 0 && j<=60){
-              strip.setPixelColor(j, eleventh, twelfth, thirteenth);
-              strip.setPixelColor(60-j, eleventh, twelfth, thirteenth);
-            }
-            check();
-          }
-          strip.show();
-          delay(wait);
+        for (int i = 3*144/4 ; i<144; i++){
+          strip.setPixelColor(i, eleventh, twelfth, thirteenth);
         }
-        delay(50); 
-        pointErase(wait);
-        delay(100); 
 
-        
-          
-          
+        strip.show();
+
 }
 
 void breathe(uint8_t wait) {
- uint16_t i, j;
-
-  for(j=0; j<256*3; j++) { // 3 cycles of all colors on wheel
+ uint16_t i;
+ 
     for(i=0; i< strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
     }
     strip.show();
     delay(wait);
-    check();
-  }
+    
+    if(j<256*3)
+      j++;
+    else
+      j=0;
 }
 
 void chaseRainbow(uint8_t wait) {
-  for (int j=0; j < 256; j++) {     // cycle all 256 colors in the wheel
-    for (int q=0; q < 3; q++) {
+
       for (int i=0; i < strip.numPixels(); i=i+3) {
         strip.setPixelColor(i+q, Wheel( (i+j) % 255));    //turn every third pixel on
       }
       strip.show();
       delay(wait);
-      check();
+      
       for (int i=0; i < strip.numPixels(); i=i+3) {
         strip.setPixelColor(i+q, 0);        //turn every third pixel off
       }
-    }
-    check();
-  }
-}
 
-void pointErase(uint8_t wait) {
-       for (int i = -2 ; i<60/2 + 2; i++){
-        for (int j = i-2 ; j < i+2; j++){
-          if( j>= 0 && j<=60){
-            strip.setPixelColor(j, 0, 0, 0);
-            strip.setPixelColor(60-j, 0, 0, 0);
-          }
-        }
-        strip.show();
-        delay(wait);
-        check();
-       }
+      if(q<3)
+        q++;
+      else
+        q=0;
+    
+
+    if(j<256)   // cycle all 256 colors in the wheel
+      j++;
+    else
+      j=0;
+      
+  
 }
 
 
 void erase() {
-   for (int i = 0 ; i<60;i+=1)
+   for (int i = 0 ; i<144;i+=1)
           strip.setPixelColor(i, 0, 0, 0);
 }
 
@@ -253,22 +210,4 @@ uint32_t Wheel(byte WheelPos) {
   }
   WheelPos -= 170;
   return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
-}
-
-void check(){
-  if (ET.receiveData()){
-        first = mydata.one;
-        second = mydata.two;
-        third = mydata.thr;
-        fourth = mydata.fou;
-        fifth = mydata.fiv;
-        sixth = mydata.six;
-        seventh = mydata.sev;
-        eighth = mydata.eig;
-        ninth = mydata.nin;
-        tenth = mydata.ten; 
-        eleventh = mydata.ele; 
-        twelfth = mydata.twe;
-        thirteenth = mydata.thi;
-  }
 }
