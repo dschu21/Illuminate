@@ -33,7 +33,7 @@ struct RECEIVE_DATA_STRUCTURE{
 RECEIVE_DATA_STRUCTURE mydata;
 
   int first = 0, second = 0, third = 0, fourth = 0, fifth = 0, sixth = 0, seventh = 0, eighth = 0, ninth = 0, tenth = 0, eleventh = 0, twelfth = 0, thirteenth = 0;
-  int brightness = 56;
+  int brightness = 64;
   
   uint16_t j = 0, q = 0;
   
@@ -133,7 +133,7 @@ void straight() {
 
 void point(uint8_t wait) {    
         for (int i = 0 ; i<144/4; i++){
-          strip.setPixelColor(i, first, second, third);
+          strip.setPixelColor(i, second, third, fourth);
         }
 
         for (int i = 144/4 ; i<144/2; i++){
